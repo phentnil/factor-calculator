@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+}
+
+td {
+  text-align: center;
+  width: 25%;
+}
+
+table, td, th {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.error {
+    color: red;
+}

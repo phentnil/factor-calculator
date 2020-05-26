@@ -1,0 +1,26 @@
+{
+  "name": "factor-calculator",
+  "version": "1.0.0",
+  "description": "a simple calculator for factor products",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phentnil/factor-calculator.git"
+  },
+  "author": "phentnil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phentnil/factor-calculator/issues"
+  },
+  "homepage": "https://github.com/phentnil/factor-calculator#readme",
+  "devDependencies": {
+    "grunt": "^1.1.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "jest": "^26.0.1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "curly": true,
+  "eqeqeq": true,
+  "esversion": 6,
+  "immed": true,
+  "latedef": true,
+  "newcap": true,
+  "node": true,
+  "undef": true,
+  "-W117": true
+}

@@ -1,0 +1,1 @@
+module.exports={init:function(){require("./search").search(null,null)}};

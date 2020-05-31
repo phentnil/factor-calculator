@@ -2,7 +2,7 @@
   console.log("Target:",target);
   printUnits(JSON.parse(JSON.stringify(kcUnits)));*/
 
-const printUnits = units => {// TODO: Incorporate this as some form of output into the main module
+module.exports = units => {// TODO: Incorporate this as some form of output into the main module
   units = units || [];
   if (units.length < 1) {return false;}
   var unitOut = "Unit | Qty | Multiples\n";
@@ -22,5 +22,3 @@ const printUnits = units => {// TODO: Incorporate this as some form of output in
   }
   console.log(unitOut);
 };
-
-module.exports = printUnits;

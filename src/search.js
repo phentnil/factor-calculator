@@ -12,23 +12,21 @@
 /*
   getMatches(target, JSON.parse(JSON.stringify(kcUnits)));*/
 
-module.exports = {
-  search: (target, units) => {
-    // default target units to 1000 if valid input not provided
-    target = target || 1000;
-    // default units available to a few short options
-    units = units || [{'unit':522},{'unit':533},{'unit':1023},{'unit':1024},{'unit':1024}];
-    units.forEach(item => {
-      item.diff = item.unit - target;
-      item.dpnt = item.unit / target;
-      item.ndif = (item.unit < 1000) ? item.dpnt * 2 : item.dpnt;
-      item.pd = (item.dpnt < 1) ? 1 - item.dpnt : item.dpnt - 1;
-    });
-    units.sort((a,b) => a.pd - b.pd);
-    //var elUnits = units.filter(item=>(item.dpnt > 0.9) && (item.dpnt < 1.1));
-    //return JSON.stringify(units) + "\n" + JSON.stringify(elUnits);
-    return units[0].unit;
-  }
+module.exports = (target, units) => {
+  // default target units to 1000 if valid input not provided
+  target = target || 1000;
+  // default units available to a few short options
+  units = units || [{'unit':522},{'unit':533},{'unit':1023},{'unit':1024},{'unit':1024}];
+  units.forEach(item => {
+    item.diff = item.unit - target;
+    item.dpnt = item.unit / target;
+    item.ndif = (item.unit < 1000) ? item.dpnt * 2 : item.dpnt;
+    item.pd = (item.dpnt < 1) ? 1 - item.dpnt : item.dpnt - 1;
+  });
+  units.sort((a,b) => a.pd - b.pd);
+  //var elUnits = units.filter(item=>(item.dpnt > 0.9) && (item.dpnt < 1.1));
+  //return JSON.stringify(units) + "\n" + JSON.stringify(elUnits);
+  return units[0].unit;
 };
 
 /*const getMatches = (target, inUnits) => {

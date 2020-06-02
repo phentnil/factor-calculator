@@ -12,21 +12,25 @@
 /*
   getMatches(target, JSON.parse(JSON.stringify(kcUnits)));*/
 
-module.exports = (target, units) => {
-  // default target units to 1000 if valid input not provided
-  target = target || 1000;
-  // default units available to a few short options
-  units = units || [{'unit':522},{'unit':533},{'unit':1023},{'unit':1024},{'unit':1024}];
-  units.forEach(item => {
+const sorting = require('./sorting');
+
+module.exports = (target) => {
+  if ("number" !== typeof target || (target < 500) || (target > 5000)) {
+    let err = "Target out of range! (target: " + target + ")";
+    throw err;
+  }
+  const units = [{unit: 533, quantity: 4}, {unit: 535, quantity: 3}, {unit: 536, quantity: 1}, {unit: 540, quantity: 6}, {unit: 554, quantity: 1}, {unit: 565, quantity: 2}, {unit: 576, quantity: 2}, {unit: 1097, quantity: 4}, {unit: 1100, quantity: 4}, {unit: 1155, quantity: 2}];
+
+  // starting out, we are going to pull the closest unit value to the target without considering combinations.
+  let singletonUnits = units.map(item => {
     item.diff = item.unit - target;
     item.dpnt = item.unit / target;
-    item.ndif = (item.unit < 1000) ? item.dpnt * 2 : item.dpnt;
     item.pd = (item.dpnt < 1) ? 1 - item.dpnt : item.dpnt - 1;
+    return item;
   });
-  units.sort((a,b) => a.pd - b.pd);
-  //var elUnits = units.filter(item=>(item.dpnt > 0.9) && (item.dpnt < 1.1));
-  //return JSON.stringify(units) + "\n" + JSON.stringify(elUnits);
-  return units[0].unit;
+  singletonUnits.sort(sorting.byDiff);
+  singletonUnits = singletonUnits.filter(item => item.dpnt < 1.1 && item.dpnt > 0.9);
+  return (singletonUnits.length > 0) ? singletonUnits[0] : [];
 };
 
 /*const getMatches = (target, inUnits) => {

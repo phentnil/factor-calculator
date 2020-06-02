@@ -6,7 +6,7 @@
   "directories": {
     "build": "./build",
     "src": "./src",
-    "test": "./test"
+    "tests": "./tests"
   },
   "scripts": {
     "test": "jest"

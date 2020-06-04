@@ -1,38 +1,37 @@
-// TODO: start by finding combinations that are quick to find, then implement deeper search algorithms...
-// TODO: import module that keeps track of units available?
-// Possibly import multiples with individual scores?
-//const inventory = require("inventory");
-
-/*
-  kcUnits.forEach(function (item, index, array) {
-    item.multiples = [];
-    for (var i = 0; i <= item.quantity; i++) {item.multiples.push(i * item.unit);}
-  });*/
-
-/*
-  getMatches(target, JSON.parse(JSON.stringify(kcUnits)));*/
-
 const sorting = require('./sorting');
 
-module.exports = (target) => {
-  if ("number" !== typeof target || (target < 500) || (target > 5000)) {
-    let err = "Target out of range! (target: " + target + ")";
-    throw err;
+module.exports = (t, r) => {
+  /**
+   * @param {number} t     Target amount. An error is thrown if type is not number or if a number not between 500 and 5000 is given.
+   * @param {number} [r=1] number of results requested
+   * @return {Object|Array} If r is 1, an Object will be returned with the best-matching value. Otherwise, r number of Objects will be returned in an array.
+   * @todo Find combinations that are quick to find, then implement deeper search algorithms...
+   * @todo Import module that keeps track of units available?
+   * @todo Possibly import multiples with individual scores?
+   */
+  if ("number" !== typeof t) {
+    throw "Target not specified (must be a number)!";
+  } else if ((t < 500) || (t > 5000)) {
+    throw "Target out of range!";
   }
+  r = ("number" !== typeof r || (r < 1)) ? 1 : r;
   const units = [{unit: 533, quantity: 4}, {unit: 535, quantity: 3}, {unit: 536, quantity: 1}, {unit: 540, quantity: 6}, {unit: 554, quantity: 1}, {unit: 565, quantity: 2}, {unit: 576, quantity: 2}, {unit: 1097, quantity: 4}, {unit: 1100, quantity: 4}, {unit: 1155, quantity: 2}];
 
   // starting out, we are going to pull the closest unit value to the target without considering combinations.
-  let singletonUnits = units.map(item => {
-    item.diff = item.unit - target;
-    item.dpnt = item.unit / target;
+  let resultUnits = units.map(item => {
+    item.diff = item.unit - t;
+    item.dpnt = item.unit / t;
     item.pd = (item.dpnt < 1) ? 1 - item.dpnt : item.dpnt - 1;
     return item;
   });
-  singletonUnits.sort(sorting.byDiff);
-  singletonUnits = singletonUnits.filter(item => item.dpnt < 1.1 && item.dpnt > 0.9);
-  return (singletonUnits.length > 0) ? singletonUnits[0] : [];
+  resultUnits.sort(sorting.byDiff);
+  resultUnits = resultUnits.filter(item => item.dpnt < 1.1 && item.dpnt > 0.9);
+  if (r === 1) {return resultUnits[0];}
+  else {return resultUnits.slice(0, (r - 1));}
+  // return (resultUnits.length > 0) ? resultUnits[0] : [];
 };
 
+/* All commented code below is just for reference. */
 /*const getMatches = (target, inUnits) => {
   var i, l, j;
   target = target || 3000;
@@ -75,3 +74,13 @@ module.exports = (target) => {
 
 module.exports.getMatches = getMatches;
 */
+//const inventory = require("inventory");
+
+/*
+  kcUnits.forEach(function (item, index, array) {
+    item.multiples = [];
+    for (var i = 0; i <= item.quantity; i++) {item.multiples.push(i * item.unit);}
+  });*/
+
+/*
+  getMatches(target, JSON.parse(JSON.stringify(kcUnits)));*/

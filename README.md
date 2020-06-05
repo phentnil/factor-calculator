@@ -1,6 +1,8 @@
 # Factor Calculator
 Using a list of available vials and their specific unit values, we want to calculate the most ideal dose as close to the ordered dose as possible. The allowable error margin from the ordered dose is ±10%.
 
+![CI](https://github.com/phentnil/factor-calculator/workflows/CI/badge.svg)
+
 ## Units available:
 Units | Quantity
 ------|---------

@@ -1,1 +1,0 @@
-module.exports={search:(t,n)=>(t=t||1e3,(n=n||[{unit:522},{unit:533},{unit:1023},{unit:1024},{unit:1024}]).forEach(n=>{n.diff=n.unit-t,n.dpnt=n.unit/t,n.ndif=n.unit<1e3?2*n.dpnt:n.dpnt,n.pd=n.dpnt<1?1-n.dpnt:n.dpnt-1}),n.sort((t,n)=>t.pd-n.pd),n[0].unit)};

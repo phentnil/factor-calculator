@@ -1,11 +1,11 @@
-module.exports = () => {
+module.exports = tar => {
   // import modules
   const search = require('./search');
-  const sorting = require('./sorting');
-  const output = require('./output');
+  //const sorting = require('./sorting');
+  //const output = require('./output');
 
   // TODO: implement user input
-  const input = 3000;
+  const input = tar || 3000;
 
   // TODO: import units in inventory?
 

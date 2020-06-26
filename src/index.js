@@ -3,24 +3,23 @@ module.exports = tar => {
   const search = require('./search');
   //const sorting = require('./sorting');
   const output = require('./output');
+  const fs = require('fs');
 
   // TODO: implement user input
-  const input = tar || 3000;
+  const input = tar;
 
   // TODO: import units in inventory?
 
   // TODO: find all results
-  const results = search(input);
-
-  // TODO: sort and classify results?
-  // const filteredResults = qualityCheckFunction(results);
-
-  // TODO: format top result(s)
-  // const finalResults = outputParser(filteredResults);
-  const formattedResults = output(results);
-
-  // TODO: output result(s)
-  //   - console.log() or return?
-  console.log(formattedResults);
-  return formattedResults;
+  var results;
+  try {
+    results = search(input);
+    // TODO: format top result(s)
+    const formattedResults = output(results,tar);
+    console.log(formattedResults);
+    return formattedResults;
+  } catch (err) {
+    console.log(err);
+    return `Results found: 0`;
+  }
 };

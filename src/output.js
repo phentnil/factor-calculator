@@ -1,12 +1,21 @@
-module.exports = results => {
+module.exports = (results, target) => {
   if (!results.length) {return false;}
-  var unitOut = "\nTarget dose: " + results[0].target + "\n| Unit | Qty | Total | Difference\n|--------------------------------\n";
+  var unitOut = "\nTarget dose: " + target + "\n|  Sum |  Difference  | Units \n|--------------------------------\n";
   for (var i = 0, l = results.length; i < l; i++) {
-    let rbase = results[i].base, rquan = results[i].quantity, rtota = results[i].total, rdiff = results[i].diff, rdpc = (results[i].dpnt * 100).toFixed(1);
-    unitOut += "| " + ((rbase < 1000) ? " " : "") + rbase + " ";
-    unitOut += "| " + ((rquan < 10) ? " " : "") + rquan + "  ";
-    unitOut += "|  " + ((rtota < 1000) ? " " : "") + rtota + " ";
-    unitOut += "| " + ((rdiff < 0) ? "-" : "+") + Math.abs(rdiff) + " (" + ((rdpc < 0) ? "-" : "+") + Math.abs(rdpc) + "%)";
+    let units = results[i].units, sum = results[i].sum;
+    let diff = sum - target;
+    let dp = (diff / target) * 100;
+    unitOut += "| " + ((sum < 1000) ? " " : "") + sum + " ";
+    unitOut += "| ";
+    let sign = (diff < 0) ? "-" : "+";
+    unitOut += sign + Math.abs(diff) + " (" + sign + Math.abs(dp.toFixed(1)) + "%) ";
+    unitOut += "| ";
+    for (let j = 0, m = units.length; j < m; j++) {
+      unitOut += units[j].base + " x" + units[j].quantity;
+      if (j + 1 < m) {
+        unitOut += ", ";
+      }
+    }
     unitOut += "\n";
   }
   return unitOut;

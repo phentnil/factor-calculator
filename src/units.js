@@ -1,4 +1,4 @@
-let units = [
+module.exports = [
 {unit: 533, quantity: 4},
 {unit: 535, quantity: 3},
 {unit: 536, quantity: 1},
@@ -10,15 +10,3 @@ let units = [
 {unit: 1100, quantity: 4},
 {unit: 1155, quantity: 2}
 ];
-let multiples = [];
-units.forEach(item=>{
-  for (let u = item.unit, q = 1, maxQ = item.quantity; q <= maxQ; q++) {
-    let mtp = {};
-    mtp.base = u;
-    mtp.quantity = q;
-    mtp.total = u * q;
-    multiples.push(mtp);
-  }
-});
-
-module.exports = multiples;

@@ -1,37 +1,58 @@
 const units = require('./units');
-const sorting = require('./sorting');
-
 module.exports = (t) => {
-  /**
-   * @param {number} t    Target amount. An error is thrown if type is not
-                          number or if a number not between 500 and 5000 is
-                          given.
-   * @return [{Object}]   An Array of objects will be returned with the
-                          best-matching values.
-   */
   if ("number" !== typeof t) {
     throw "Target not specified (must be a number)!";
   } else if ((t < 500) || (t > 5000)) {
     throw "Target out of range!";
   }
+  let results = [];
+  let unitMultiples = [];
+  for (let i = 0, l = units.length; i < l; i++) {
+    for (let u = units[i].unit, q = units[i].quantity; q > 0; q--) {
+      let total = u * q;
+      // Break if the multiple goes over 5000 or over 110% of the target
+      if (total > 5000 || total > (t * 1.1)) {continue;}
+      let mtp = {};
+      mtp.base = u;
+      mtp.quantity = q;
+      mtp.total = total;
 
-  let resultUnits = units.map(item => {
-    let q = t / item.unit; // quotient
-    item.iq = Math.round(q); // integer quotient
-    if (item.iq > item.quantity) {item.iq = item.quantity;}
-    item.diff = (item.unit * item.iq) - t;
-    item.dpnt = item.diff / t;
-    return item;
-  });
-  resultUnits.sort(sorting);
-
-  // Using the .some() array method, we want to check that there is at least
-  // one result within the 10% margin that will be returned
-  if (resultUnits.some(item=>Math.abs(item.dpnt) < 0.1)) {
-    return resultUnits.filter(item => Math.abs(item.dpnt) < 0.1);
+      // Now it will either be a multiple to be considered in further combinations or it is a result as any other combinations will cause the sum to be > 110% of the target
+      if (total < (t * 0.9)) {
+        // Since the total is still good, we want to create a multiple to be considered
+        unitMultiples.push(mtp);
+      } else {
+        let result = {};
+        result.units = [];
+        result.sum = total;
+        result.units.push(mtp);
+        results.push(result);
+      }
+    }
   }
 
-  // If no results will be returned that are within the 10% margin,
-  // return the best 3 results
-  return resultUnits.slice(0,3);
+  // After building the multiples, we can then search for all combinations that result in a value which could be within range
+  // Remember to check for multiple.base such that one object does not contain the same base value
+
+  let umLength = unitMultiples.length;
+  for (let i = 0; i < umLength; i++) {
+    let result = {};
+    result.units = [];
+    result.sum = 0;
+    for (let j = i + 1; j < umLength; j++) {
+      if (result.units.length > 0) {
+        if (result.units.some(item => {return item.base === this.base;}, unitMultiples[j])) {continue;}
+      }
+      let sum = result.sum + unitMultiples[j].total;
+      if (sum > 5000 || sum > t * 1.1) {break;}
+      result.units.push(unitMultiples[j]);
+      result.sum += unitMultiples[j].total;
+      if (sum > t * 0.9) {break;}
+    }
+    if (result.units.length > 0 && result.sum > t * 0.9) {
+      results.push(result);
+    }
+  }
+
+  return results;
 };

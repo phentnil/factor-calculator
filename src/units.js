@@ -1,4 +1,4 @@
-module.exports = [
+module.exports = JSON.stringify([
 {unit: 533, quantity: 4},
 {unit: 535, quantity: 3},
 {unit: 536, quantity: 1},
@@ -9,4 +9,4 @@ module.exports = [
 {unit: 1097, quantity: 4},
 {unit: 1100, quantity: 4},
 {unit: 1155, quantity: 2}
-];
+]);

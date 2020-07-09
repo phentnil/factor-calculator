@@ -1,4 +1,4 @@
-const units = require('./units');
+const units = JSON.parse(require('./units'));
 module.exports = (t) => {
   if ("number" !== typeof t) {
     throw "Target not specified (must be a number)!";
@@ -11,14 +11,14 @@ module.exports = (t) => {
     for (let u = units[i].unit, q = units[i].quantity; q > 0; q--) {
       let total = u * q;
       // Break if the multiple goes over 5000 or over 110% of the target
-      if (total > 5000 || total > (t * 1.1)) {continue;}
+      if (total > 5000 || total >= (t * 1.1)) {continue;}
       let mtp = {};
       mtp.base = u;
       mtp.quantity = q;
       mtp.total = total;
 
       // Now it will either be a multiple to be considered in further combinations or it is a result as any other combinations will cause the sum to be > 110% of the target
-      if (total < (t * 0.9)) {
+      if (total <= (t * 0.9)) {
         // Since the total is still good, we want to create a multiple to be considered
         unitMultiples.push(mtp);
       } else {
@@ -44,7 +44,7 @@ module.exports = (t) => {
         if (result.units.some(item => {return item.base === this.base;}, unitMultiples[j])) {continue;}
       }
       let sum = result.sum + unitMultiples[j].total;
-      if (sum > 5000 || sum > t * 1.1) {break;}
+      if (sum > 5000 || sum >= t * 1.1) {break;}
       result.units.push(unitMultiples[j]);
       result.sum += unitMultiples[j].total;
       if (sum > t * 0.9) {break;}

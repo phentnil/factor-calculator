@@ -9,6 +9,7 @@
     "tests": "./tests"
   },
   "scripts": {
+    "start": "node index",
     "test": "jest"
   },
   "repository": {

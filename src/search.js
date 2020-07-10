@@ -1,4 +1,5 @@
 const units = JSON.parse(require('./units'));
+const Result = require("./result");
 module.exports = (t) => {
   if ("number" !== typeof t) {
     throw "Target not specified (must be a number)!";
@@ -22,11 +23,9 @@ module.exports = (t) => {
         // Since the total is still good, we want to create a multiple to be considered
         unitMultiples.push(mtp);
       } else {
-        let result = {};
-        result.units = [];
-        result.sum = total;
-        result.units.push(mtp);
-        results.push(result);
+        let mtpUnits = [];
+        mtpUnits.push(mtp);
+        results.push(new Result(t, mtpUnits, total));
       }
     }
   }
@@ -36,21 +35,21 @@ module.exports = (t) => {
 
   let umLength = unitMultiples.length;
   for (let i = 0; i < umLength; i++) {
-    let result = {};
-    result.units = [];
-    result.sum = 0;
+    let umResult = {};
+    umResult.units = [];
+    umResult.sum = 0;
     for (let j = i + 1; j < umLength; j++) {
-      if (result.units.length > 0) {
-        if (result.units.some(item => {return item.base === this.base;}, unitMultiples[j])) {continue;}
+      if (umResult.units.length > 0) {
+        if (umResult.units.some(item => {return item.base === this.base;}, unitMultiples[j])) {continue;}
       }
-      let sum = result.sum + unitMultiples[j].total;
+      let sum = umResult.sum + unitMultiples[j].total;
       if (sum > 5000 || sum >= t * 1.1) {break;}
-      result.units.push(unitMultiples[j]);
-      result.sum += unitMultiples[j].total;
+      umResult.units.push(unitMultiples[j]);
+      umResult.sum += unitMultiples[j].total;
       if (sum > t * 0.9) {break;}
     }
-    if (result.units.length > 0 && result.sum > t * 0.9) {
-      results.push(result);
+    if (umResult.units.length > 0 && umResult.sum > t * 0.9) {
+      results.push(new Result(t, umResult.units, umResult.sum));
     }
   }
 

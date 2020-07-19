@@ -1,5 +1,5 @@
 const units = JSON.parse(require('./units'));
-const Result = require("./result");
+const result = require("./result");
 module.exports = (t) => {
   if ("number" !== typeof t) {
     throw "Target not specified (must be a number)!";
@@ -20,12 +20,12 @@ module.exports = (t) => {
 
       // Now it will either be a multiple to be considered in further combinations or it is a result as any other combinations will cause the sum to be > 110% of the target
       if (total <= (t * 0.9)) {
-        // Since the total is still good, we want to create a multiple to be considered
+        // Since the total is still below the threshold, we want to create a multiple to be considered
         unitMultiples.push(mtp);
       } else {
         let mtpUnits = [];
         mtpUnits.push(mtp);
-        results.push(new Result(t, mtpUnits, total));
+        results.push(result(t, mtpUnits, total));
       }
     }
   }
@@ -49,7 +49,7 @@ module.exports = (t) => {
       if (sum > t * 0.9) {break;}
     }
     if (umResult.units.length > 0 && umResult.sum > t * 0.9) {
-      results.push(new Result(t, umResult.units, umResult.sum));
+      results.push(result(t, umResult.units, umResult.sum));
     }
   }
 

@@ -15,7 +15,7 @@ const theForm = `<form action="" method="GET"><div><label for="target">Target:</
 const sort = {
   byScore: (a, b) => {return b.score - a.score;},
   byVCount: (a, b) => {return a.vCount - b.vCount;},
-  byDiff: (a, b) => {return a.diff - b.diff;}
+  byDiff: (a, b) => {return Math.abs(a.diff) - Math.abs(b.diff);}
 };
 
 // Server events handling

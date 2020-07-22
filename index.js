@@ -10,12 +10,29 @@ const listOpts = {
 };
 const htmlContent = {"Content-Type": "text/html"};
 const preheader = `<!DOCTYPE html><html lang="en"><title>`;
-const postheader = `</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /><style>* {text-align: center;}table{margin:1em auto;}th,td{padding:0.5em;}table,th,td{border:1px solid black;border-collapse:collapse;}</style></head><body>`;
-const theForm = `<form action="" method="GET"><div><label for="target">Target:</label></div><div><input type="number" name="target" id="target" value="500" /></div><div><label for="sortScore"><input type="radio" id="sortScore" name="sort" value="score" checked="true" /> Sort by score (internal)</label></div><div><label for="sortVCount"><input type="radio" id="sortVCount" name="sort" value="vCount" /> Sort by vial count</label></div><div><label for="sortDiff"><input type="radio" id="sortDiff" name="sort" value="diff" /> Sort by difference</label></div><div><input type="submit" value="Search" /></div></form>`;
+const postheader = `</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /><style>* {text-align: center;}table{margin:1em auto;}th,td{padding:0.5em;}table,th,td{border:1px solid black;border-collapse:collapse;}input[type=number]{border: 0; border-bottom: 1px solid black;width:60px;}</style></head><body><h1>KCentra Calculator</h1>`;
 const sort = {
   byScore: (a, b) => {return b.score - a.score;},
   byVCount: (a, b) => {return a.vCount - b.vCount;},
   byDiff: (a, b) => {return Math.abs(a.diff) - Math.abs(b.diff);}
+};
+
+const theForm = (targetForm, sort) => {
+  let form = `<form action="" method="GET"><div><label for="target">Ordered dose:</label></div><div><input type="number" name="target" id="target" value="`;
+  switch (typeof targetForm) {
+    case "number":
+    form = (targetForm >= 500 && targetForm <= 5000) ? `${form}${targetForm}` : `${form}500`;
+    break;
+    case "string":
+    form = (isNaN(targetForm)) ? `${form}500` : `${form}${targetForm}`;
+    break;
+    default:
+    form = `${form}500`;
+    break;
+  }
+  if (typeof sort !== "string") {sort = "score";}
+  form = `${form}" /> units</div><div><em>Ordered dose must be between 500 units and 5,000 units.</em></div><div>Sort by:</div><div><input type="radio" id="sortScore" name="sort" value="score" ${(sort==="score")?'checked="true" ':''}/> <label for="sortScore">score (internal)</label></div><div><input type="radio" id="sortVCount" name="sort" value="vCount" ${(sort==="vCount")?'checked="true" ':''}/><label for="sortVCount"> vial count</label></div><div><input type="radio" id="sortDiff" name="sort" value="diff" ${(sort==="diff")?'checked="true" ':''}/> <label for="sortDiff">difference</label></div><div><input type="submit" value="Search" /></div></form>`;
+  return form;
 };
 
 // Server events handling
@@ -35,10 +52,10 @@ server.on('request', (req, res) => {
         sResults = search(reqNumber);
       } catch (err) {
         console.log(`There was an error processing your request:\n${err.name}: ${err.message}`);
-        res.end(`${preheader}KCentra Calculator${postheader}${theForm}</body></html>`);
+        res.end(`${preheader}KCentra Calculator${postheader}${theForm()}</body></html>`);
         return;
       }
-      let sortVC, sortDiff, sortScore;
+/*      let sortVC, sortDiff, sortScore;
       sortVC = sortDiff = sortScore = "";
       switch (sortBy) {
         case "vCount":
@@ -54,8 +71,8 @@ server.on('request', (req, res) => {
         sortScore = `checked="true" `;
         sResults.sort(sort.byScore);
         break;
-      }
-      var tResults = `<table><thead><tr><th>Units to use:</th><th>Result Sum</th><th>Difference from Target</th></tr></thead><tbody>`;
+      }*/
+      var tResults = `<table><thead><tr><th>Units to use:</th><th>Result Sum</th><th>Difference from Ordered dose</th></tr></thead><tbody>`;
       for (let i = 0, sl = sResults.length; i < sl; i++) {
         let sru = JSON.parse(JSON.stringify(sResults[i].units));
         let ul = sru.length;
@@ -72,10 +89,11 @@ server.on('request', (req, res) => {
         tResults = `${tResults}</td><td>${sum}</td><td>${sign}${Math.abs(diff)} (${sign}${(Math.abs(diff/reqNumber) * 100).toFixed(2)}%)</td></tr>`;
       }
       tResults = `${tResults}</tbody></table>`;
-      res.end(`${preheader}KCentra Calculator Results${postheader}<form action="" method="GET"><div><label for="target">Target:</label></div><div><input type="number" name="target" id="target" value="${reqNumber}" /></div><div><label for="sortScore"><input type="radio" id="sortScore" name="sort" value="score" ${sortScore}/> Sort by score (internal)</label></div><div><label for="sortVCount"><input type="radio" id="sortVCount" name="sort" value="vCount" ${sortVC}/> Sort by vial count</label></div><div><label for="sortDiff"><input type="radio" id="sortDiff" name="sort" value="diff" ${sortDiff}/> Sort by difference</label></div><div><input type="submit" value="Search" /></div></form>${tResults}</body></html>`);
+      /*<div>Sort by:<ul><li><label for="sortScore"><input type="radio" id="sortScore" name="sort" value="score" checked="true" /> score (internal)</label></li><li><label for="sortVCount"><input type="radio" id="sortVCount" name="sort" value="vCount" /> vial count</label></li><li><label for="sortDiff"><input type="radio" id="sortDiff" name="sort" value="diff" /> difference</label></li></ul></div>*/
+      res.end(`${preheader}KCentra Calculator Results${postheader}${theForm(reqNumber, sortBy)}${tResults}</body></html>`);
     } else {
       // plain request sent, show just the form
-      res.end(`${preheader}KCentra Calculator${postheader}${theForm}</body></html>`);
+      res.end(`${preheader}KCentra Calculator${postheader}${theForm()}</body></html>`);
       return;
     }
   } else {

@@ -5,31 +5,37 @@
   "main": "src/index.js",
   "directories": {
     "build": "./build",
-    "src": "./src",
-    "tests": "./tests"
+    "src": "./src"
   },
   "scripts": {
-    "start": "node index",
-    "test": "jest"
+    "start": "node index"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/phentnil/factor-calculator.git"
   },
-  "keywords": [],
+  "keywords": [
+    "factor",
+    "medicine",
+    "calculator",
+    "node",
+    "javascript",
+    "kcentra"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/phentnil/factor-calculator/issues"
   },
-  "homepage": "https://github.com/phentnil/factor-calculator#readme",
+  "homepage": "https://phentnil.github.io/factor-calculator",
   "devDependencies": {
     "grunt": "^1.4.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-nodemon": "^0.4.2",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "parcel-bundler": "^1.12.5"
   },
   "private": true
 }

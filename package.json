@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/phentnil/factor-calculator#readme",
   "devDependencies": {
-    "grunt": "^1.3.0",
-    "grunt-contrib-jshint": "^3.0.0",
+    "grunt": "^1.4.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
-    "jest-cli": "^26.6.3"
+    "grunt-nodemon": "^0.4.2",
+    "nodemon": "^2.0.7"
   },
   "private": true
 }

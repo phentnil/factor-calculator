@@ -2,13 +2,14 @@
   "name": "factor-calculator",
   "version": "1.0.0",
   "description": "Using a list of available vials and their specific unit values, we want to calculate the most ideal dose as close to the ordered dose as possible. The allowable error margin from the ordered dose is ±10%.",
-  "main": "src/app.js",
+  "main": "build/app.js",
   "directories": {
     "build": "./build",
     "src": "./src"
   },
   "scripts": {
-    "start": "node app"
+    "build": "parcel build app.js",
+    "start": "node build/app"
   },
   "repository": {
     "type": "git",

@@ -40,8 +40,8 @@ var args = require("minimist")(process.argv.slice(2));
 var target = args["target"];
 if ("undefined" === typeof target) {
   target = Math.floor(Math.random() * 5000) + 1;
+  console.log(`target: ${target}\n`);
 }
-//console.log(`target: ${target}\n`);
 if ("number" === typeof target) {
   var results = search(target);
   var inRangeResults = [];

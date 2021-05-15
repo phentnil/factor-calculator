@@ -62,7 +62,7 @@ if ("number" === typeof target) {
   for (var i = 0; i < lowerResults.length; i++) {
     console.log(optionPrint(lowerResults[i]));
   }
-  // TODO: find combinations of lowerResults if inRangeResults is empty...
+  // TODO: #20 find combinations of lowerResults if inRangeResults is empty...
   //console.log(JSON.stringify(results));
   return;
 }

@@ -1,9 +1,9 @@
 // Module imports
-import { createServer } from "http";
-import search from "./src/search";
+const http = require("http");
+const search = require("./src/search");
 
 // Constants
-const server = createServer();
+const server = http.createServer();
 const listOpts = {
   port: 8080,
   host: "localhost",
@@ -23,6 +23,7 @@ const sort = {
   },
 };
 
+// TODO: #19 clean up index.js, such as modularizing all the different functions.
 const theForm = (targetForm, sort) => {
   let form = `<form action="" method="GET"><div><label for="target">Ordered dose:</label></div><div><input type="number" name="target" id="target" value="`;
   switch (typeof targetForm) {
@@ -121,6 +122,7 @@ server.on("request", (req, res) => {
           sortBy
         )}${tResults}</body></html>`
       );
+      console.log(JSON.stringify(sResults));
     } else {
       // plain request sent, show just the form
       res.end(

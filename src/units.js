@@ -1,3 +1,8 @@
+/*
+KCentra Factor unit variations per vial:
+500-unit:  400 to 620
+1000-unit: 800 to 1240 */
+
 module.exports = JSON.stringify([
 {unit: 533, quantity: 4},
 {unit: 535, quantity: 3},

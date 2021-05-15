@@ -2,13 +2,13 @@
   "name": "factor-calculator",
   "version": "1.0.0",
   "description": "Using a list of available vials and their specific unit values, we want to calculate the most ideal dose as close to the ordered dose as possible. The allowable error margin from the ordered dose is ±10%.",
-  "main": "src/index.js",
+  "main": "src/app.js",
   "directories": {
     "build": "./build",
     "src": "./src"
   },
   "scripts": {
-    "start": "node index"
+    "start": "node app"
   },
   "repository": {
     "type": "git",
@@ -33,9 +33,11 @@
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-nodemon": "^0.4.2",
-    "nodemon": "^2.0.7",
-    "parcel-bundler": "^1.12.5"
+    "grunt-nodemon": ">=0.4.2",
+    "nodemon": "^2.0.7"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "parcel": "^2.0.0-beta.2"
+  }
 }

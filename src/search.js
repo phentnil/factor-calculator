@@ -1,6 +1,6 @@
 var units = JSON.parse(require("./units"));
 var Result = require("./result");
-function search(target) {
+module.exports = function search(target) {
   if ("number" !== typeof target) {
     throw "Target not specified (must be a number)";
   }
@@ -30,6 +30,4 @@ function search(target) {
     return b.score - a.score;
   });
   return results;
-}
-
-module.exports = search;
+};

@@ -7,18 +7,19 @@ const searchResults = (target) => {
   var results;
   try {
     results = search(target);
-    console.log(JSON.stringify(results, null, 2));
+    console.log(JSON.stringify(results));
   } catch (error) {
     console.error(error);
     return "";
   }
   var tResults = "";
-  for (let i = 0, sl = results.length; i < sl; i++) {
-    let sru = results[i].units.join(", ");
-    let sum = results[i].sum;
-    let sign = results[i].difference < 0 ? "-" : "+";
-    let diff = Math.abs(results[i].difference).toPrecision(4);
-    let difp = Math.abs(results[i].differencePercent * 100).toPrecision(4);
+  var { goodResults } = results;
+  for (let i = 0, sl = goodResults.length; i < sl; i++) {
+    let sru = goodResults[i].units.join(", ");
+    let sum = goodResults[i].sum;
+    let sign = goodResults[i].difference < 0 ? "-" : "+";
+    let diff = Math.abs(goodResults[i].difference).toPrecision(4);
+    let difp = Math.abs(goodResults[i].differencePercent * 100).toPrecision(4);
     tResults = `${tResults}
       <tr>
         <td>${sru}</td>

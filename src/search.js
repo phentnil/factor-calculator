@@ -1,18 +1,30 @@
 var units = JSON.parse(require("./units"));
 var Result = require("./result");
+function filterInRange(result) {
+  return Math.abs(result.differencePercent) < 0.1;
+}
+function filterLowerResults(result) {
+  return result.differencePercent <= -0.1;
+}
+function deepCopy(array) {
+  return JSON.parse(JSON.stringify(array));
+}
+function sortScoreDescending(a, b) {
+  return b.score - a.score;
+}
 module.exports = function search(target) {
   if ("number" !== typeof target) {
     throw "Target not specified (must be a number)";
   }
-  var uniqueUnits = units
-    .flatMap(function (unit) {
+  var uniqueUnits,
+    unitMultiples,
+    goodResults = [],
+    mixedUnits = [];
+  try {
+    uniqueUnits = units.flatMap(function (unit) {
       return new Result(target, [unit.unit], unit.unit);
-    })
-    .sort(function (a, b) {
-      return a.sum - b.sum;
     });
-  var unitMultiples = units
-    .flatMap(function (unit) {
+    unitMultiples = units.flatMap(function (unit) {
       var multiples = [];
       for (var i = 2; i <= unit.quantity; i++) {
         var mult = [];
@@ -22,12 +34,63 @@ module.exports = function search(target) {
         multiples.push(new Result(target, mult, i * unit.unit));
       }
       return multiples;
-    })
-    .sort(function (a, b) {
-      return a.sum - b.sum;
     });
-  var results = [...uniqueUnits, ...unitMultiples].sort(function (a, b) {
-    return b.score - a.score;
-  });
-  return results;
+  } catch (error) {
+    console.error(error);
+  }
+  goodResults.push(uniqueUnits.filter(filterInRange));
+  goodResults.push(unitMultiples.filter(filterInRange));
+  uniqueUnits = uniqueUnits.filter(filterLowerResults);
+  unitMultiples = unitMultiples.filter(filterLowerResults);
+  mixedUnits.push(uniqueUnits);
+  mixedUnits.push(unitMultiples);
+  mixedUnits = mixedUnits.flat();
+  var mixedUnitsMixed = mixedUnits
+    .map(function (result, index) {
+      var newResults = [];
+      for (var i = index + 1; i < mixedUnits.length; i++) {
+        var tar = result.target;
+        var newUnits = [];
+        newUnits.push(result.units);
+        newUnits.push(mixedUnits[i].units);
+        newUnits = deepCopy(newUnits.flat());
+        var sum = result.sum + mixedUnits[i].sum;
+        var res = new Result(tar, newUnits, sum);
+        newResults.push(res);
+      }
+      return newResults;
+    })
+    .flat();
+  mixedUnits = deepCopy(mixedUnitsMixed);
+  goodResults.push(deepCopy(mixedUnits).filter(filterInRange));
+  mixedUnits = deepCopy(mixedUnits).filter(filterLowerResults);
+  goodResults = deepCopy(goodResults).flat();
+  uniqueUnits.sort(sortScoreDescending);
+  unitMultiples.sort(sortScoreDescending);
+  mixedUnits.sort(sortScoreDescending);
+  goodResults.sort(sortScoreDescending);
+  var bestResult;
+  bestResult =
+    goodResults.length > 0
+      ? goodResults.shift()
+      : mixedUnits.length > 0
+      ? mixedUnits.shift()
+      : {};
+  var goodLength = goodResults.length,
+    mixedLength = mixedUnits.length,
+    uniqueLength = uniqueUnits.length,
+    unitLength = unitMultiples.length;
+
+  return {
+    target,
+    bestResult,
+    goodLength,
+    mixedLength,
+    uniqueLength,
+    unitLength,
+    goodResults,
+    mixedUnits,
+    uniqueUnits,
+    unitMultiples,
+  };
 };

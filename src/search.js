@@ -1,7 +1,7 @@
 var units = JSON.parse(require("./units"));
 var Result = require("./result");
 function filterInRange(result) {
-  return Math.abs(result.differencePercent) < 0.1;
+  return Math.abs(result.differencePercent) < 0.1 && result.sum <= 5000;
 }
 function filterLowerResults(result) {
   return result.differencePercent <= -0.1;
@@ -69,28 +69,10 @@ module.exports = function search(target) {
   unitMultiples.sort(sortScoreDescending);
   mixedUnits.sort(sortScoreDescending);
   goodResults.sort(sortScoreDescending);
-  var bestResult;
-  bestResult =
-    goodResults.length > 0
-      ? goodResults.shift()
-      : mixedUnits.length > 0
-      ? mixedUnits.shift()
-      : {};
-  var goodLength = goodResults.length,
-    mixedLength = mixedUnits.length,
-    uniqueLength = uniqueUnits.length,
-    unitLength = unitMultiples.length;
 
-  return {
-    target,
-    bestResult,
-    goodLength,
-    mixedLength,
-    uniqueLength,
-    unitLength,
-    goodResults,
-    mixedUnits,
-    uniqueUnits,
-    unitMultiples,
-  };
+  var resultToReturn = { target, goodResults };
+  if (goodResults.length === 0) {
+    resultToReturn.otherResults = deepCopy(mixedUnits);
+  }
+  return resultToReturn;
 };

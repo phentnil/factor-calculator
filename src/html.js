@@ -14,12 +14,16 @@ const searchResults = (target) => {
   }
   var tResults = "";
   var { goodResults } = results;
-  for (let i = 0, sl = goodResults.length; i < sl; i++) {
-    let sru = goodResults[i].units.join(", ");
-    let sum = goodResults[i].sum;
-    let sign = goodResults[i].difference < 0 ? "-" : "+";
-    let diff = Math.abs(goodResults[i].difference).toPrecision(4);
-    let difp = Math.abs(goodResults[i].differencePercent * 100).toPrecision(4);
+  var { otherResults } = results;
+  var resultsToDisplay = goodResults.length ? goodResults : otherResults;
+  for (let i = 0, sl = resultsToDisplay.length; i < sl && i < 10; i++) {
+    let sru = resultsToDisplay[i].units.join(", ");
+    let sum = resultsToDisplay[i].sum;
+    let sign = resultsToDisplay[i].difference < 0 ? "-" : "+";
+    let diff = Math.abs(resultsToDisplay[i].difference).toPrecision(4);
+    let difp = Math.abs(
+      resultsToDisplay[i].differencePercent * 100
+    ).toPrecision(4);
     tResults = `${tResults}
       <tr>
         <td>${sru}</td>

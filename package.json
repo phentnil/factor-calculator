@@ -28,10 +28,5 @@
     "url": "https://github.com/phentnil/factor-calculator/issues"
   },
   "homepage": "https://phentnil.github.io/factor-calculator",
-  "private": true,
-  "devDependencies": {
-    "@babel/cli": "^7.14.3",
-    "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.2"
-  }
+  "private": true
 }

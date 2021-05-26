@@ -1,6 +1,6 @@
 # Factor Calculator
 
-[![CodeQL](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml)
+[![CodeQL](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml)
 
 Because of the nature of production of bleeding factor product medications, the exact unit amount in each vial will vary. Usually each factor product has certain unit ranges which have some degree of variability. We take unit amounts available into account to calculate which combinations can make up dose amounts within ±10% of the ordered dose.
 

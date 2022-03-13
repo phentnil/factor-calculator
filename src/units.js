@@ -3,7 +3,9 @@ KCentra Factor unit variations per vial:
 500-unit:  400 to 620
 1000-unit: 800 to 1240 */
 
-module.exports = JSON.stringify([
+const { Unit } = require("./Unit");
+
+const factorUnits = [
   { unit: 533, quantity: 4 },
   { unit: 535, quantity: 3 },
   { unit: 536, quantity: 1 },
@@ -14,4 +16,7 @@ module.exports = JSON.stringify([
   { unit: 1097, quantity: 4 },
   { unit: 1100, quantity: 4 },
   { unit: 1155, quantity: 2 },
-]);
+].map((unitObject) => {
+  return new Unit(unitObject.unit, unitObject.quantity);
+});
+module.exports = { factorUnits };

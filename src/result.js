@@ -1,4 +1,4 @@
-module.exports = function result(target, units, sum) {
+function result(target, units, sum) {
   var count = units.length;
   var difference = sum - target;
   var differencePercent = sum / target - 1;
@@ -8,4 +8,5 @@ module.exports = function result(target, units, sum) {
       ? (Math.pow(2, 53) - 1) / count
       : Math.abs(1 / count / differencePercent);
   return { count, difference, differencePercent, score, sum, target, units };
-};
+}
+module.exports = { result };

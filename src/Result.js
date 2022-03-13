@@ -28,7 +28,12 @@ class Result {
         : Math.abs(1 / count / differencePercent);
   }
   simplePrint() {
-    return `${this.sum}\t${this.difference}\t${this.units.join(", ")}`;
+    return `${String(this.sum).padEnd(6, " ")}${String(this.difference)
+      .padStart(5, " ")
+      .padEnd(8, " ")}${this.units.reduce(
+      (total, next) => total + String(next).padEnd(5, " "),
+      ""
+    )}`;
   }
   detailPrint() {
     return `${this.target}\t${this.sum}\t${this.difference}\t${String(

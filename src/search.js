@@ -28,8 +28,6 @@ function search(target, units) {
 
   // Sort results based on score
   multiples.sort((ma, mb) => mb.score - ma.score);
-
-  console.log(`Target: ${target}`);
-  console.log(multiples.map((mult) => mult.simplePrint()).join("\n"));
+  return multiples;
 }
 module.exports = { search };

@@ -5,10 +5,13 @@ class Unit {
   constructor(unit, quantity) {
     this.value = unit;
     this.quantity = quantity;
-    this.multiples = Array.from(
-      { length: quantity },
-      (_, index) => (index + 1) * unit
-    ).filter((value) => value > 5000);
+    let multiples = [];
+    let amount = unit;
+    for (let i = 1; i <= quantity && amount <= 5000; i++) {
+      multiples.push(amount);
+      amount += unit;
+    }
+    this.multiples = multiples;
   }
 }
 module.exports = { Unit };

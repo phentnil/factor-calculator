@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <title>Factor Calculator</title>
+  <style>
+    main {
+      margin: 0 auto;
+      max-width: 768px;
+      width: 100%;
+    }
+
+    table {
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 100%;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: aliceblue;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: skyblue;
+    }
+
+    table,
+    td,
+    th {
+      border: 1px solid black;
+    }
+
+    td,
+    th {
+      width: 33%;
+    }
+
+    tr>td:nth-child(1),
+    tr>td:nth-child(2) {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Target: <span id="targetValue"></span></h1>
+    <div><label for="newTargetInput">New Target: </label><input id="newTargetInput" type="number" min="400" max="5000">
+    </div>
+    <section>
+      <div>Results within &#177; 10%: <span id="resultsInRange">0</span></div>
+      <h2>Results:</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Sum</th>
+            <th>Difference</th>
+            <th>Units</th>
+          </tr>
+        </thead>
+        <tbody id="factorResults">
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+
+</html>

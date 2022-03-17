@@ -28,3 +28,23 @@ Ordered dose is 3000 units
 | ---------------- | ----- | ---------- | -------- |
 | 1155, 1155, 565  | 2,875 | -125       | -4.2%    |
 | 1097, 1097, 1097 | 3,291 | 291        | +9.7%    |
+
+## Getting Started
+
+Clone this repository with
+
+```sh
+git clone https://github.com/phentnil/factor-calculator.git
+cd factor-calculator
+```
+
+Build the project with
+
+```sh
+npm ci
+npm run build
+```
+
+## Contribution
+
+See [contributing.md](/contributing.md)

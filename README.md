@@ -6,6 +6,8 @@ Because of the nature of production of bleeding factor product medications, the 
 
 Using a list of available vials and their specific unit values, we want to calculate the most ideal dose as close to the ordered dose as possible. The allowable error margin from the ordered dose is > -10% of the ordered dose and < +10% of the ordered dose. If results are not found within this margin, it is still helpful to note the closest/best result as the pharmacist will have to contact the doctor to obtain the necessary approval for that dose.
 
+The primary focus of this program is [Kcentra](https://www.kcentra.com/), but the program can be generalized to other bleeding factor medications once it is built to be a robust, working program.
+
 ## Example case
 
 Ordered dose is 3000 units

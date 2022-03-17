@@ -39,6 +39,19 @@ const reloadResults = () => {
   results = search(target);
   targetHead.textContent = target;
   factorTable.innerHTML = "";
+  /*
+   * TODO: combine other results which are < -10% which 
+   * sum to within the 10%
+   * 
+   * Example:
+   * 
+   * - Target: 4888
+   * - Two results which are < -10%:
+   *   - Sum: 4388	Diff: -500	Units: 1097 x 4
+   *   - Sum: 533		Diff: -4355	Units: 533
+   * - New Combination:
+   *   - Sum: 4921	Diff: +33		Units: 1097 x 4, 533
+   */
   results = results.filter((res) => res.differencePercent < 0.1);
   const inRangeResults = results.filter((res) => res.differencePercent > -0.1);
   resultsInRange.textContent = inRangeResults.length;

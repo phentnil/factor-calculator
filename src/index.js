@@ -27,7 +27,6 @@ var allowedKeys = [
 ];
 var results;
 var target = targetInput.value;
-console.log(target, typeof target, target.length);
 targetInput.addEventListener("keydown", (event) => {
   if (!allowedKeys.includes(event.key) && event.key.match(/\d+/gi) === null) {
     event.preventDefault();
@@ -47,7 +46,6 @@ const reloadResults = () => {
       let sum = outOfRangeResults[i].sum + outOfRangeResults[j].sum;
       let diff = target - sum;
       let differencePercent = diff / target;
-      console.log(sum, diff, differencePercent);
       if (differencePercent < 0.1 && differencePercent > -0.1) {
         results.push(new Result(target, [...outOfRangeResults[i].units, ...outOfRangeResults[j].units]));
       }

@@ -1,4 +1,5 @@
 const { search } = require("./search");
+const { Result } = require("./Result");
 const factorTable = document.getElementById("factorResults");
 const targetInput = document.getElementById("newTargetInput");
 const targetHead = document.getElementById("targetValue");
@@ -26,7 +27,6 @@ var allowedKeys = [
 ];
 var results;
 var target = targetInput.value;
-console.log(target, typeof target, target.length);
 targetInput.addEventListener("keydown", (event) => {
   if (!allowedKeys.includes(event.key) && event.key.match(/\d+/gi) === null) {
     event.preventDefault();
@@ -39,23 +39,22 @@ const reloadResults = () => {
   results = search(target);
   targetHead.textContent = target;
   factorTable.innerHTML = "";
-  /*
-   * TODO: combine other results which are < -10% which 
-   * sum to within the 10%
-   * 
-   * Example:
-   * 
-   * - Target: 4888
-   * - Two results which are < -10%:
-   *   - Sum: 4388	Diff: -500	Units: 1097 x 4
-   *   - Sum: 533		Diff: -4355	Units: 533
-   * - New Combination:
-   *   - Sum: 4921	Diff: +33		Units: 1097 x 4, 533
-   */
-  results = results.filter((res) => res.differencePercent < 0.1);
+  const outOfRangeResults = results.filter((res) => res.differencePercent <= -0.1);
+  for (let i = 0; i < outOfRangeResults.length; i++) {
+    for (let j = i + 1; j < outOfRangeResults.length; j++) {
+      if (i === j) continue;
+      let sum = outOfRangeResults[i].sum + outOfRangeResults[j].sum;
+      let diff = target - sum;
+      let differencePercent = diff / target;
+      if (differencePercent < 0.1 && differencePercent > -0.1) {
+        results.push(new Result(target, [...outOfRangeResults[i].units, ...outOfRangeResults[j].units]));
+      }
+    }
+  }
+  results.sort((ma, mb) => mb.score - ma.score);
   const inRangeResults = results.filter((res) => res.differencePercent > -0.1);
   resultsInRange.textContent = inRangeResults.length;
-  results.forEach((result) => {
+  inRangeResults.forEach((result) => {
     const row = tableRow.cloneNode();
     const sumCell = tableCell.cloneNode();
     const diffCell = tableCell.cloneNode();

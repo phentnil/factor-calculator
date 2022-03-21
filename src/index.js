@@ -56,7 +56,7 @@ const reloadResults = () => {
   results.sort((ma, mb) => mb.score - ma.score);
   const inRangeResults = results.filter((res) => res.differencePercent > -0.1);
   resultsInRange.textContent = inRangeResults.length;
-  resultsInRange.forEach((result) => {
+  inRangeResults.forEach((result) => {
     const row = tableRow.cloneNode();
     const sumCell = tableCell.cloneNode();
     const diffCell = tableCell.cloneNode();

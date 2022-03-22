@@ -59,15 +59,18 @@ const reloadResults = () => {
     const row = tableRow.cloneNode();
     const sumCell = tableCell.cloneNode();
     const diffCell = tableCell.cloneNode();
+    const vialCountCell = tableCell.cloneNode();
     const unitsCell = tableCell.cloneNode();
 
     sumCell.textContent = result.sum;
     diffCell.textContent = `${result.difference} (${(
       result.differencePercent * 100
     ).toPrecision(3)}%)`;
+    vialCountCell.textContent = result.units.length;
     unitsCell.textContent = result.units.join(", ");
     row.appendChild(sumCell);
     row.appendChild(diffCell);
+    row.appendChild(vialCountCell);
     row.appendChild(unitsCell);
     factorTable.appendChild(row);
   });

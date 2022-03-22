@@ -43,7 +43,7 @@ cd factor-calculator
 Build the project with
 
 ```sh
-npm ci
+npm install
 npm run build
 ```
 

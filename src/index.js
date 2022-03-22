@@ -39,7 +39,9 @@ const reloadResults = () => {
   results = search(target);
   targetHead.textContent = target;
   factorTable.innerHTML = "";
-  const outOfRangeResults = results.filter((res) => res.differencePercent <= -0.1);
+  const outOfRangeResults = results.filter(
+    (res) => res.differencePercent <= -0.1
+  );
   for (let i = 0; i < outOfRangeResults.length; i++) {
     for (let j = i + 1; j < outOfRangeResults.length; j++) {
       if (i === j) continue;
@@ -47,7 +49,12 @@ const reloadResults = () => {
       let diff = target - sum;
       let differencePercent = diff / target;
       if (differencePercent < 0.1 && differencePercent > -0.1) {
-        results.push(new Result(target, [...outOfRangeResults[i].units, ...outOfRangeResults[j].units]));
+        results.push(
+          new Result(target, [
+            ...outOfRangeResults[i].units,
+            ...outOfRangeResults[j].units,
+          ])
+        );
       }
     }
   }

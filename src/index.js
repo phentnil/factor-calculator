@@ -51,6 +51,7 @@ const reloadResults = () => {
       }
     }
   }
+  results = results.filter((res) => res.differencePercent < 0.1);
   results.sort((ma, mb) => mb.score - ma.score);
   const inRangeResults = results.filter((res) => res.differencePercent > -0.1);
   resultsInRange.textContent = inRangeResults.length;

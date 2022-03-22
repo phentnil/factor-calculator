@@ -27,13 +27,7 @@ var allowedKeys = [
 ];
 var results;
 var target = targetInput.value;
-targetInput.addEventListener("keydown", (event) => {
-  if (!allowedKeys.includes(event.key) && event.key.match(/\d+/gi) === null) {
-    event.preventDefault();
-    console.log(event);
-    console.log(event.key);
-  }
-});
+
 const reloadResults = () => {
   target = parseInt(targetInput.value, 10);
   results = search(target);
@@ -94,6 +88,13 @@ const reloadResults = () => {
     factorTable.appendChild(row);
   });
 };
+targetInput.addEventListener("keydown", (event) => {
+  if (!allowedKeys.includes(event.key) && event.key.match(/\d+/gi) === null) {
+    event.preventDefault();
+    console.log(event);
+    console.log(event.key);
+  }
+});
 targetInput.addEventListener("keyup", (event) => {
   if (event.target.value < 400 || event.target.value > 5000) {
     event.preventDefault();

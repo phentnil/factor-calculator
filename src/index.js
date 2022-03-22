@@ -59,6 +59,16 @@ const reloadResults = () => {
     }
   }
   results = results.filter((res) => res.differencePercent < 0.1);
+  results = results.filter((value, index, array) => {
+    let valueStringified = JSON.stringify(value);
+    for (let i = index + 1; i < array.length; i++) {
+      if (i === index) continue;
+      if (JSON.stringify(array[i]) === valueStringified) {
+        return false;
+      }
+    }
+    return true;
+  });
   results.sort((ma, mb) => mb.score - ma.score);
   const inRangeResults = results.filter((res) => res.differencePercent > -0.1 && res.sum <= 5000);
   resultsInRange.textContent = inRangeResults.length;

@@ -2,6 +2,8 @@
 
 [![CodeQL](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml)
 
+Access the online calculator [here](https://phentnil.github.io/factor-calculator/dist/index.html)!
+
 Because of the nature of production of bleeding factor product medications, the exact unit amount in each vial will vary. Usually each factor product has certain unit ranges which have some degree of variability. We take unit amounts available into account to calculate which combinations can make up dose amounts within ±10% of the ordered dose.
 
 Using a list of available vials and their specific unit values, we want to calculate the most ideal dose as close to the ordered dose as possible. The allowable error margin from the ordered dose is > -10% of the ordered dose and < +10% of the ordered dose. If results are not found within this margin, it is still helpful to note the closest/best result as the pharmacist will have to contact the doctor to obtain the necessary approval for that dose.

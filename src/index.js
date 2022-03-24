@@ -3,6 +3,8 @@ const { Result } = require("./Result");
 const factorTable = document.getElementById("factorResults");
 const targetInput = document.getElementById("newTargetInput");
 const targetHead = document.getElementById("targetValue");
+const minValueElement = document.getElementById("minValue");
+const maxValueElement = document.getElementById("maxValue");
 const resultsInRange = document.getElementById("resultsInRange");
 const tableRow = document.createElement("tr");
 const tableCell = document.createElement("td");
@@ -32,6 +34,8 @@ const reloadResults = () => {
   target = parseInt(targetInput.value, 10);
   results = search(target);
   targetHead.textContent = target;
+  minValueElement.textContent = Math.ceil(target * 0.9);
+  maxValueElement.textContent = Math.floor(target * 1.1);
   factorTable.innerHTML = "";
   const outOfRangeResults = results.filter(
     (res) => res.differencePercent <= -0.1

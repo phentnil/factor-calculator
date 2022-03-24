@@ -71,10 +71,28 @@ const reloadResults = () => {
   const inRangeResults = results.filter(
     (res) => res.differencePercent > -0.1 && res.sum <= 5000
   );
-  const inRangeResultPerQuantity = [];
-  inRangeResults.forEach((result) => {});
-  resultsInRange.textContent = inRangeResults.length;
-  inRangeResults.forEach((result) => {
+  let resultsToShow;
+  let inRange = true;
+  if (inRangeResults.length < 1) {
+    // Select out-of-range results to show
+    resultsToShow = JSON.parse(JSON.stringify(outOfRangeResults));
+    inRange = false;
+    resultsInRange.textContent = 0;
+  } else {
+    // Select in-range results to show
+    resultsToShow = JSON.parse(JSON.stringify(inRangeResults));
+  }
+  const resultsPerQuantity = [];
+  resultsToShow.forEach((result) => {
+    let { count } = result;
+    if (resultsPerQuantity.every((res) => res.count !== count)) {
+      resultsPerQuantity.push(result);
+    }
+  });
+  if (inRange) {
+    resultsInRange.textContent = resultsPerQuantity.length;
+  }
+  resultsPerQuantity.forEach((result) => {
     const row = tableRow.cloneNode();
     const sumCell = tableCell.cloneNode();
     const diffCell = tableCell.cloneNode();

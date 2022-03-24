@@ -67,6 +67,8 @@ const reloadResults = () => {
   const inRangeResults = results.filter(
     (res) => res.differencePercent > -0.1 && res.sum <= 5000
   );
+  const inRangeResultPerQuantity = [];
+  inRangeResults.forEach((result) => {});
   resultsInRange.textContent = inRangeResults.length;
   inRangeResults.forEach((result) => {
     const row = tableRow.cloneNode();

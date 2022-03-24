@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
   <title>Factor Calculator</title>
   <style>
     main {
@@ -48,8 +48,11 @@
 <body>
   <main>
     <h1>Target: <span id="targetValue"></span></h1>
-    <div><label for="newTargetInput">New Target: </label><input id="newTargetInput" type="number" min="400" max="5000"
-        value="1000">
+    <h2>Min: <span id="minValue"></span></h2>
+    <h2>Max: <span id="maxValue"></span></h2>
+    <div>
+      <label for="newTargetInput">New Target: </label><input id="newTargetInput" type="number" min="400" max="5000"
+        value="1000" />
     </div>
     <section>
       <div>Results within &#177;10%: <span id="resultsInRange">0</span></div>
@@ -63,8 +66,7 @@
             <th>Units</th>
           </tr>
         </thead>
-        <tbody id="factorResults">
-        </tbody>
+        <tbody id="factorResults"></tbody>
       </table>
     </section>
   </main>

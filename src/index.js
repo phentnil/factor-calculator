@@ -27,8 +27,11 @@ var allowedKeys = [
   "Tab",
   "Escape",
 ];
+/**
+ * @type {Result[]}
+ */
 var results;
-var target = targetInput.value;
+var target = parseInt(targetInput.value, 10);
 
 const reloadResults = () => {
   target = parseInt(targetInput.value, 10);
@@ -71,6 +74,9 @@ const reloadResults = () => {
   const inRangeResults = results.filter(
     (res) => res.differencePercent > -0.1 && res.sum <= 5000
   );
+  /**
+   * @type {Result[]}
+   */
   let resultsToShow;
   let inRange = true;
   if (inRangeResults.length < 1) {
@@ -82,6 +88,7 @@ const reloadResults = () => {
     // Select in-range results to show
     resultsToShow = JSON.parse(JSON.stringify(inRangeResults));
   }
+  /**@type {Result[]} */
   const resultsPerQuantity = [];
   resultsToShow.forEach((result) => {
     let { count } = result;

@@ -6,6 +6,7 @@ class Unit {
   constructor(unit, quantity) {
     this._unit = unit;
     this._quantity = quantity;
+    this._multiples = [];
     for (let i = 1, sum = unit; i <= quantity && sum <= MAX_UNIT_VALUE; i++) {
       this._multiples.push(sum);
       sum += unit;

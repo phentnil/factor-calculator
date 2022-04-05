@@ -1,5 +1,12 @@
 const { search } = require("./search");
 const { Result } = require("./Result");
+const {
+  MAX_UNIT_VALUE,
+  LOW_PART,
+  HIGH_PART,
+  LOW_THRESHOLD,
+  HIGH_THRESHOLD,
+} = require("./constants");
 const factorTable = document.getElementById("factorResults");
 const targetInput = document.getElementById("newTargetInput");
 const targetHead = document.getElementById("targetValue");
@@ -37,8 +44,9 @@ const reloadResults = () => {
   target = parseInt(targetInput.value, 10);
   results = search(target);
   targetHead.textContent = target;
-  minValueElement.textContent = Math.ceil(target * 0.9);
-  maxValueElement.textContent = Math.floor(target * 1.1);
+  console.log(LOW_THRESHOLD, HIGH_THRESHOLD);
+  minValueElement.textContent = Math.ceil(target * LOW_PART);
+  maxValueElement.textContent = Math.floor(target * HIGH_PART);
   factorTable.innerHTML = "";
   const outOfRangeResults = results.filter(
     (res) => res.differencePercent <= -0.1
@@ -72,7 +80,7 @@ const reloadResults = () => {
   });
   results.sort((ma, mb) => mb.score - ma.score);
   const inRangeResults = results.filter(
-    (res) => res.differencePercent > -0.1 && res.sum <= 5000
+    (res) => res.differencePercent > -0.1 && res.sum <= MAX_UNIT_VALUE
   );
   /**
    * @type {Result[]}

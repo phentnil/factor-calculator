@@ -1,3 +1,4 @@
+const { MAX_UNIT_VALUE } = require("./constants");
 class Unit {
   _unit;
   _quantity;

@@ -44,7 +44,7 @@
   "devDependencies": {
     "css-loader": "^6.0.0",
     "mini-css-extract-plugin": "^2.0.0",
-    "node-sass": "^7.0.1",
+    "node-sass": "^8.0.0",
     "style-loader": "^0.23.1"
   }
 }

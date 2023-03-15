@@ -1,6 +1,6 @@
 # Factor Calculator
 
-[![CodeQL](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml)
+[![CodeQL](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/phentnil/factor-calculator/actions/workflows/codeql-analysis.yml) [![Node.js CI](https://github.com/phentnil/factor-calculator/actions/workflows/node.js.yml/badge.svg)](https://github.com/phentnil/factor-calculator/actions/workflows/node.js.yml)
 
 Access the online calculator [here](https://phentnil.github.io/factor-calculator/dist/index.html)!
 
